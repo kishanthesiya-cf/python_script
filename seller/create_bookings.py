@@ -111,7 +111,7 @@ def process_csv(input_file, output_file):
                             "name": row['name'],
                             "ifsc": row['ifsc'],
                             "accountNum": row['accountNum'],
-                            "accountName": "CORPORATION BANK"
+                            "accountName": row['bank']
                         }
                     }
                 }
