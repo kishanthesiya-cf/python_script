@@ -22,7 +22,7 @@ def create_seller(data):
     if response.status_code == 200:
         return response.json()['sellerId']
     else:
-        raise Exception(f"Failed to create seller: {response.text}")
+        raise Exception("Failed to create seller: {response.text}")
 
 def get_agent_by_email(email):
     params = {
@@ -43,11 +43,11 @@ def get_agent_by_email(email):
         if len(agents) == 1:
             return agents[0]['id']
         elif len(agents) > 1:
-            raise Exception(f"Multiple agents found for email: {email}")
+            raise Exception("Multiple agents found for email: {email}")
         else:
-            raise Exception(f"No agent found for email: {email}")
+            raise Exception("No agent found for email: {email}")
     else:
-        raise Exception(f"Failed to get agent: {response.text}")
+        raise Exception("Failed to get agent: {response.text}")
 
 def update_agent_attributes(agent_id, seller_id):
     data = [
@@ -68,12 +68,12 @@ def update_agent_attributes(agent_id, seller_id):
     ]
     response = requests.post(OLLIVANDER_UPDATE_URL, headers=OLLIVANDER_HEADERS, data=json.dumps(data))
     if response.status_code != 200:
-        raise Exception(f"Failed to update agent attributes: {response.text}")
+        raise Exception("Failed to update agent attributes: {response.text}")
 
 def process_csv(input_file, output_file):
     with open(input_file, mode='r', encoding='utf-8') as infile, open(output_file, mode='w', encoding='utf-8') as outfile:
         reader = csv.DictReader(infile)
-          = reader.fieldnames + ['status']
+        fieldnames = reader.fieldnames + ['status']
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
 
