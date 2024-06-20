@@ -29,7 +29,7 @@ def get_agent_by_email(email):
         'inActiveAgentsRequired': 'true',
         'onlyFeaturedRequired': 'false',
         'agentRoomsRequired': 'false',
-        'serviceMappingRequired': 'false',
+        'serviceMappingRequired': 'true',
         'agentAttributesRequired': 'false',
         'agentShiftRequired': 'false',
         'agentCentersRequired': 'false',
@@ -43,7 +43,11 @@ def get_agent_by_email(email):
         if len(agents) == 1:
             return agents[0]['id']
         elif len(agents) > 1:
-            raise Exception("Multiple agents found for email: {email}")
+            for agent in agents:
+                            for service in agent.get('resourceServiceMapping', []):
+                                if service.get('subServiceType', {}).get('groupType') == 'GYMFIT_PERSONAL_TRAINING':
+                                    return agent['id']
+                        raise Exception(f"No agent with GYMFIT_PERSONAL_TRAINING found for email: {email}, Details: {email}")
         else:
             raise Exception("No agent found for email: {email}")
     else:
