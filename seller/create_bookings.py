@@ -45,6 +45,7 @@ def get_agent_by_email(email):
         elif len(agents) > 1:
             for agent in agents:
                             for service in agent.get('resourceServiceMapping', []):
+                                print(service.get('subServiceType', {}).get('groupType'))
                                 if service.get('subServiceType', {}).get('groupType') == 'GYMFIT_PERSONAL_TRAINING':
                                     return agent['id']
                         raise Exception(f"No agent with GYMFIT_PERSONAL_TRAINING found for email: {email}, Details: {email}")
@@ -120,7 +121,7 @@ def process_csv(input_file, output_file):
                     }
                 }
 
-                seller_id = create_seller(seller_data)
+                seller_id = 'PERSONAL_TRAINER-227508'
                 agent_id = get_agent_by_email(row['email'])
                 update_agent_attributes(agent_id, seller_id)
 
