@@ -44,11 +44,11 @@ def get_agent_by_email(email):
             return agents[0]['id']
         elif len(agents) > 1:
             for agent in agents:
-                            for service in agent.get('resourceServiceMapping', []):
-                                print(service.get('subServiceType', {}).get('groupType'))
-                                if service.get('subServiceType', {}).get('groupType') == 'GYMFIT_PERSONAL_TRAINING':
-                                    return agent['id']
-                        raise Exception(f"No agent with GYMFIT_PERSONAL_TRAINING found for email: {email}, Details: {email}")
+                for service in agent.get('resourceServiceMapping', []):
+                    print(service.get('subServiceType', {}).get('groupType'))
+                    if service.get('subServiceType', {}).get('groupType') == 'GYMFIT_PERSONAL_TRAINING':
+                        return agent['id']
+                raise Exception(f"No agent with GYMFIT_PERSONAL_TRAINING found for email: {email}, Details: {email}")
         else:
             raise Exception("No agent found for email: {email}")
     else:
