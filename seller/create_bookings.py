@@ -40,13 +40,11 @@ def get_agent_by_email(email):
     response = requests.get(OLLIVANDER_AGENT_URL, headers=OLLIVANDER_HEADERS, params=params)
     if response.status_code == 200:
         agents = response.json()
-        print(len(agents))
         if len(agents) == 1:
             return agents[0]['id']
         elif len(agents) > 1:
             for agent in agents:
                 for service in agent.get('resourceServiceMapping', []):
-                    print(service.get('subServiceType', {}).get('groupType'))
                     if service.get('subServiceType', {}).get('groupType') == 'GYMFIT_PERSONAL_TRAINING':
                         return agent['id']
                 raise Exception("No agent with GYMFIT_PERSONAL_TRAINING found for email: {email}, Details: {email}")
@@ -122,7 +120,7 @@ def process_csv(input_file, output_file):
                     }
                 }
 
-                seller_id = 'PERSONAL_TRAINER-227508'
+                seller_id = create_seller(seller_data)
                 agent_id = get_agent_by_email(row['email'])
                 update_agent_attributes(agent_id, seller_id)
 
