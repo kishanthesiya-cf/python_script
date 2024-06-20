@@ -40,6 +40,7 @@ def get_agent_by_email(email):
     response = requests.get(OLLIVANDER_AGENT_URL, headers=OLLIVANDER_HEADERS, params=params)
     if response.status_code == 200:
         agents = response.json()
+        print(len(agents))
         if len(agents) == 1:
             return agents[0]['id']
         elif len(agents) > 1:
@@ -48,7 +49,7 @@ def get_agent_by_email(email):
                     print(service.get('subServiceType', {}).get('groupType'))
                     if service.get('subServiceType', {}).get('groupType') == 'GYMFIT_PERSONAL_TRAINING':
                         return agent['id']
-                raise Exception(f"No agent with GYMFIT_PERSONAL_TRAINING found for email: {email}, Details: {email}")
+                raise Exception("No agent with GYMFIT_PERSONAL_TRAINING found for email: {email}, Details: {email}")
         else:
             raise Exception("No agent found for email: {email}")
     else:
