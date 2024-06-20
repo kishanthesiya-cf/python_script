@@ -122,6 +122,7 @@ def process_csv(input_file, output_file):
 
                 row['status'] = 'Success'
             except Exception as e:
+                print(e)
                 row['status'] = 'Error: {str(e)}'
 
             writer.writerow(row)
